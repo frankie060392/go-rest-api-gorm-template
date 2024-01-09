@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
 	"net/http"
 	"time"
@@ -32,7 +33,7 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 	}
 
 	err := bh.bookService.Create(ctx, &newBook)
-
+	fmt.Println(newBook)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, "Can not create")
 		return

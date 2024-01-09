@@ -10,4 +10,5 @@ func Setup(db *gorm.DB, gin *gin.Engine) {
 	// Middleware to verify AccessToken
 	// All Private APIs
 	NewUserRouter(db, protectedRouter)
+	NewBookRouter(db, protectedRouter)
 }
