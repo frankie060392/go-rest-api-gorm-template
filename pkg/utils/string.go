@@ -1,15 +1,18 @@
 package utils
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
-func RemoveOx(str string) string {
+func RemoveOx(str string) (string, error) {
 	if str == "" {
-		panic("Please provide string to remove 0x")
+		return "", fmt.Errorf("please provide string to remove 0x")
 	}
 	index := strings.Index(str, "0x")
-	if index != -1 {
-		return str
+	if index == -1 {
+		return str, nil
 	}
-	result := str[1:]
-	return result
+	result := str[2:]
+	return result, nil
 }
