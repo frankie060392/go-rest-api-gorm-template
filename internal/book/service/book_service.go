@@ -10,13 +10,13 @@ type bookService struct {
 }
 
 // Create implements model.BookServiceInterface.
-func (*bookService) Create(c context.Context, book *model.Book) error {
-	panic("unimplemented")
+func (s *bookService) Create(c context.Context, book *model.Book) error {
+	return s.repo.Create(c, book)
 }
 
 // GetById implements model.BookServiceInterface.
-func (*bookService) GetById(c context.Context, id string) (model.Book, error) {
-	panic("unimplemented")
+func (s *bookService) GetById(c context.Context, id string) (model.Book, error) {
+	return s.repo.GetById(c, id)
 }
 
 func NewBookService(repo model.BookRepositoryInterface) model.BookServiceInterface {

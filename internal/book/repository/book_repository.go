@@ -12,13 +12,16 @@ type bookRepository struct {
 }
 
 // Create implements model.BookRepositoryInterface.
-func (*bookRepository) Create(c context.Context, book *model.Book) error {
-	panic("unimplemented")
+func (r *bookRepository) Create(c context.Context, book *model.Book) error {
+	result := r.DB.Save(&book)
+	return result.Error
 }
 
 // GetById implements model.BookRepositoryInterface.
-func (*bookRepository) GetById(c context.Context, id string) (model.Book, error) {
-	panic("unimplemented")
+func (r *bookRepository) GetById(c context.Context, id string) (model.Book, error) {
+	var book model.Book
+	result := r.DB.First(&book, "id = ?", id)
+	return book, result.Error
 }
 
 func NewBookRepository(db *gorm.DB) model.BookRepositoryInterface {
