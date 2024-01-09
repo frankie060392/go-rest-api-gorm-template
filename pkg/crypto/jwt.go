@@ -1,4 +1,4 @@
-package crypto
+package cryptography
 
 import (
 	"encoding/base64"
