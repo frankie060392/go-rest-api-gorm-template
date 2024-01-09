@@ -20,6 +20,13 @@ type BookCreate struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+type BookResponse struct {
+	ID        uuid.UUID `json:"id,omitempty"`
+	Name      string    `json:"name" binding:"required"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
 type BookRepositoryInterface interface {
 	Create(c context.Context, book *Book) error
 	GetById(c context.Context, id string) (Book, error)
