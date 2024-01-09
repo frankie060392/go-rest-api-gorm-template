@@ -12,9 +12,9 @@ type repository struct {
 }
 
 // CreateUser implements model.UserRepository.
-func (r *repository) CreateUser(c context.Context, user model.User) (model.User, error) {
+func (r *repository) CreateUser(c context.Context, user *model.User) error {
 	result := r.DB.Save(&user)
-	return user, result.Error
+	return result.Error
 }
 
 // GetByID implements model.UserRepository.

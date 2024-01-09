@@ -42,10 +42,10 @@ type UserResponse struct {
 
 type UserRepository interface {
 	GetByID(c context.Context, id string) (User, error)
-	CreateUser(c context.Context, user User) (User, error)
+	CreateUser(c context.Context, user *User) error
 }
 
 type UserService interface {
 	GetByID(c context.Context, id string) (User, error)
-	CreateUser(c context.Context, user User) (User, error)
+	CreateUser(c context.Context, user *User) error
 }
