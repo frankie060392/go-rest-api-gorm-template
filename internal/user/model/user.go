@@ -1,6 +1,7 @@
 package model
 
 import (
+	"context"
 	"time"
 
 	"github.com/google/uuid"
@@ -37,4 +38,9 @@ type UserResponse struct {
 	Email     string    `json:"email,omitempty"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UserRepository interface {
+	GetByID(c context.Context, id string) (User, error)
+	CreateUser(c context.Context, user User) (User, error)
 }
