@@ -19,7 +19,7 @@ func (s *userService) GetByID(c context.Context, id string) (model.User, error) 
 	return s.repo.GetByID(c, id)
 }
 
-func NewService(r model.UserRepository) model.UserService {
+func NewUserService(r model.UserRepository) model.UserService {
 	return &userService{
 		repo: r,
 	}

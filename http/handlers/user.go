@@ -14,6 +14,12 @@ type UserHandler struct {
 	userService model.UserService
 }
 
+func NewUserHandler(userService model.UserService) UserHandler {
+	return UserHandler{
+		userService: userService,
+	}
+}
+
 func (uh *UserHandler) Create(ctx *gin.Context) {
 	var payload *model.SignUpInput
 	if err := ctx.ShouldBindJSON(&payload); err != nil {

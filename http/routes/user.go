@@ -2,21 +2,18 @@ package routes
 
 import (
 	"frankie060392/rest-api-clean-arch/http/handlers"
+	"frankie060392/rest-api-clean-arch/internal/user/repository"
+	"frankie060392/rest-api-clean-arch/internal/user/service"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-type UserRoute struct {
-	userHandler handlers.UserHandler
-}
-
-func NewUserRoute(userHandler handlers.UserHandler) UserRoute {
-	return UserRoute{userHandler}
-}
-
-func (ur *UserRoute) Register(rg *gin.RouterGroup) {
-
-	router := rg.Group("users")
-	router.GET("/", ur.userHandler.GetById)
-	router.POST("/", ur.userHandler.Create)
+func NewUserRouter(db *gorm.DB, group *gin.RouterGroup) {
+	router := group.Group("user")
+	ur := repository.NewUserRepository(db)
+	us := service.NewUserService(ur)
+	uh := handlers.NewUserHandler(us)
+	router.GET("/", uh.GetById)
+	router.POST("/", uh.Create)
 }

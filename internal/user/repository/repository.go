@@ -24,6 +24,6 @@ func (r *repository) GetByID(c context.Context, id string) (model.User, error) {
 	return user, result.Error
 }
 
-func NewRepository(db *gorm.DB) model.UserRepository {
+func NewUserRepository(db *gorm.DB) model.UserRepository {
 	return &repository{DB: db}
 }

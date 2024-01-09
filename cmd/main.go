@@ -1,14 +1,19 @@
 package main
 
 import (
-	"fmt"
 	"frankie060392/rest-api-clean-arch/bootstrap"
-	"frankie060392/rest-api-clean-arch/internal/user/model"
+	"frankie060392/rest-api-clean-arch/http/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
+
 	config := bootstrap.LoadConfig(".")
 	DB := bootstrap.NewDbConnection(config)
-	DB.AutoMigrate(&model.User{})
-	fmt.Println("? Migration complete")
+
+	gin := gin.Default()
+
+	routes.Setup(DB, gin)
+	gin.Run(config.SERVER_ADDRESS)
 }
