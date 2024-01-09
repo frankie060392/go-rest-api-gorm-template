@@ -17,6 +17,17 @@ func NewBookHandler(bookService model.BookRepositoryInterface) bookHandler {
 	return bookHandler{bookService: bookService}
 }
 
+func (bh *bookHandler) GetByID(ctx *gin.Context) {
+	id := ctx.Params.ByName("id")
+	fmt.Println(id)
+	result, err := bh.bookService.GetById(ctx, id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, "Cant not get")
+		return
+	}
+	ctx.JSON(http.StatusAccepted, result)
+}
+
 func (bh *bookHandler) Create(ctx *gin.Context) {
 	var payload *model.BookCreate
 
