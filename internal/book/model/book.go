@@ -24,3 +24,8 @@ type BookRepositoryInterface interface {
 	Create(c context.Context, book *Book) error
 	GetById(c context.Context, id string) (Book, error)
 }
+
+type BookServiceInterface interface {
+	Create(c context.Context, book *Book) error
+	GetById(c context.Context, id string) (Book, error)
+}
