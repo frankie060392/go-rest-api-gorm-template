@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
 
 	"gorm.io/gorm"
@@ -21,7 +20,6 @@ func (r *bookRepository) Create(c context.Context, book *model.Book) error {
 // GetById implements model.BookRepositoryInterface.
 func (r *bookRepository) GetById(c context.Context, id string) (model.Book, error) {
 	var book model.Book
-	fmt.Println(id)
 	result := r.DB.First(&book, "id = ?", id)
 	return book, result.Error
 }

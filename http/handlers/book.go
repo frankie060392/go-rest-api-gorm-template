@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
 	"net/http"
 	"time"
@@ -19,7 +18,6 @@ func NewBookHandler(bookService model.BookRepositoryInterface) bookHandler {
 
 func (bh *bookHandler) GetByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
-	fmt.Println(id)
 	result, err := bh.bookService.GetById(ctx, id)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, "Cant not get")
@@ -44,7 +42,6 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 	}
 
 	err := bh.bookService.Create(ctx, &newBook)
-	fmt.Println(newBook)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, "Can not create")
 		return
