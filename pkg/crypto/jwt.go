@@ -12,13 +12,13 @@ func CreateToken(ttl time.Duration, payload interface{}, privateKey string) (str
 	decodedPrivateKey, err := base64.StdEncoding.DecodeString(privateKey)
 
 	if err != nil {
-		return "", fmt.Errorf("Could not decode private key: %w", err)
+		return "", fmt.Errorf("could not decode private key: %w", err)
 	}
 
 	key, err := jwt.ParseRSAPrivateKeyFromPEM(decodedPrivateKey)
 
 	if err != nil {
-		return "", fmt.Errorf("Could not parse private key: %w", err)
+		return "", fmt.Errorf("could not parse private key: %w", err)
 	}
 
 	now := time.Now().UTC()
@@ -30,7 +30,7 @@ func CreateToken(ttl time.Duration, payload interface{}, privateKey string) (str
 	token, err := jwt.NewWithClaims(jwt.SigningMethodRS256, claims).SignedString(key)
 
 	if err != nil {
-		return "", fmt.Errorf("Can not sign  %w", err)
+		return "", fmt.Errorf("can not sign  %w", err)
 	}
 	return token, nil
 }
