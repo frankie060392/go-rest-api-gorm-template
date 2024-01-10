@@ -1,8 +1,8 @@
 package handlers
 
 import (
+	"frankie060392/rest-api-clean-arch/http/common"
 	"frankie060392/rest-api-clean-arch/http/messages"
-	"frankie060392/rest-api-clean-arch/internal/common"
 	"frankie060392/rest-api-clean-arch/internal/user/model"
 	"frankie060392/rest-api-clean-arch/pkg/utils"
 	"net/http"
@@ -60,7 +60,7 @@ func (uh *UserHandler) Create(ctx *gin.Context) {
 		CreatedAt: newUser.CreatedAt,
 		UpdatedAt: newUser.UpdatedAt,
 	}
-	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: userResponse, Message: messages.CreateSuccess})
+	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: userResponse, Message: messages.SuccessCreate})
 }
 
 func (uh *UserHandler) GetById(ctx *gin.Context) {

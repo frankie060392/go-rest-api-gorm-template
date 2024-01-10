@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	"frankie060392/rest-api-clean-arch/http/common"
 	"frankie060392/rest-api-clean-arch/http/messages"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
-	"frankie060392/rest-api-clean-arch/internal/common"
 	"net/http"
 	"time"
 
@@ -56,5 +56,5 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 		UpdatedAt: newBook.UpdatedAt,
 	}
 
-	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: bookResponse, Message: messages.CreateSuccess})
+	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: bookResponse, Message: messages.SuccessCreate})
 }
