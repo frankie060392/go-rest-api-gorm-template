@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"frankie060392/rest-api-clean-arch/http/messages"
+	"frankie060392/rest-api-clean-arch/internal/common"
 	"frankie060392/rest-api-clean-arch/internal/user/model"
 	"frankie060392/rest-api-clean-arch/pkg/utils"
 	"net/http"
@@ -23,7 +25,7 @@ func NewUserHandler(userService model.UserService) UserHandler {
 func (uh *UserHandler) Create(ctx *gin.Context) {
 	var payload *model.SignUpInput
 	if err := ctx.ShouldBindJSON(&payload); err != nil {
-		ctx.JSON(http.StatusBadRequest, nil)
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: messages.ErrorCreate})
 		return
 	}
 	if payload.Password != payload.PasswordConfirm {
@@ -33,7 +35,7 @@ func (uh *UserHandler) Create(ctx *gin.Context) {
 
 	hashedPassword, err := utils.HashPassword(payload.Password)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, nil)
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: messages.ErrorCreate})
 		return
 	}
 
@@ -58,7 +60,7 @@ func (uh *UserHandler) Create(ctx *gin.Context) {
 		CreatedAt: newUser.CreatedAt,
 		UpdatedAt: newUser.UpdatedAt,
 	}
-	ctx.JSON(http.StatusCreated, userResponse)
+	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: userResponse, Message: messages.CreateSuccess})
 }
 
 func (uh *UserHandler) GetById(ctx *gin.Context) {

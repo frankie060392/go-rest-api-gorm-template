@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"frankie060392/rest-api-clean-arch/http/messages"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
+	"frankie060392/rest-api-clean-arch/internal/common"
 	"net/http"
 	"time"
 
@@ -20,7 +22,7 @@ func (bh *bookHandler) GetByID(ctx *gin.Context) {
 	id := ctx.Params.ByName("id")
 	result, err := bh.bookService.GetById(ctx, id)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, "Cant not get")
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: messages.ErrorCreate})
 		return
 	}
 	ctx.JSON(http.StatusAccepted, result)
@@ -30,7 +32,7 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 	var payload *model.BookCreate
 
 	if err := ctx.ShouldBindJSON(&payload); err != nil {
-		ctx.JSON(http.StatusBadRequest, "Error")
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: messages.ErrorCreate})
 		return
 	}
 
@@ -43,7 +45,7 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 
 	err := bh.bookService.Create(ctx, &newBook)
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, "Can not create")
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: messages.ErrorCreate})
 		return
 	}
 
@@ -54,5 +56,5 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 		UpdatedAt: newBook.UpdatedAt,
 	}
 
-	ctx.JSON(http.StatusCreated, bookResponse)
+	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: bookResponse, Message: messages.CreateSuccess})
 }
