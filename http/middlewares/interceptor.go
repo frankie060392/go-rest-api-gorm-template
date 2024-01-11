@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"frankie060392/rest-api-clean-arch/bootstrap"
 	"frankie060392/rest-api-clean-arch/http/common"
 	"frankie060392/rest-api-clean-arch/internal/user/model"
@@ -11,9 +10,10 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func DeserializeUser(us model.UserService) gin.HandlerFunc {
+func DeserializeUser(DB *gorm.DB) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authorizationHeader := ctx.GetHeader("Authorization")
 		fields := strings.Fields(authorizationHeader)
@@ -36,10 +36,12 @@ func DeserializeUser(us model.UserService) gin.HandlerFunc {
 			return
 		}
 
-		user, err := us.GetByID(ctx, fmt.Sprint(sub))
+		var user model.User
+		result := DB.First(&user, "id = ?", sub)
 
-		if err != nil {
+		if result.Error != nil {
 			ctx.JSON(http.StatusNotFound, common.ResponseData{Status: false, Message: http.StatusText(http.StatusNotFound)})
+			return
 		}
 
 		ctx.Set("currentUser", user)

@@ -13,7 +13,7 @@ import (
 )
 
 func TestFetchByUserID(t *testing.T) {
-	mockUserRepository := new(mocks.UserRepository)
+	mockUserRepository := new(mocks.UserRepositoryInterface)
 	userObjectID := uuid.New()
 	userID := userObjectID.String()
 

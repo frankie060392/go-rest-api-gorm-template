@@ -40,12 +40,14 @@ type UserResponse struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type UserRepository interface {
+type UserRepositoryInterface interface {
 	GetByID(c context.Context, id string) (User, error)
 	CreateUser(c context.Context, user *User) error
+	GetByEmail(c context.Context, email string) (User, error)
 }
 
-type UserService interface {
+type UserServiceInterface interface {
 	GetByID(c context.Context, id string) (User, error)
+	GetByEmail(c context.Context, email string) (User, error)
 	CreateUser(c context.Context, user *User) error
 }

@@ -11,4 +11,5 @@ func Setup(db *gorm.DB, gin *gin.Engine) {
 	// All Private APIs
 	NewUserRouter(db, protectedRouter)
 	NewBookRouter(db, protectedRouter)
+	NewAuthRouter(db, protectedRouter)
 }

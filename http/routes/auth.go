@@ -9,10 +9,13 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewUserRouter(db *gorm.DB, group *gin.RouterGroup) {
-	router := group.Group("user")
-	ur := repository.NewUserRepository(db)
+func NewAuthRouter(DB *gorm.DB, group *gin.RouterGroup) {
+
+	router := group.Group("auth")
+
+	ur := repository.NewUserRepository(DB)
 	us := service.NewUserService(ur)
-	uh := handlers.NewUserHandler(us)
-	router.GET("/", uh.GetById)
+	ah := handlers.NewAuthHandler(us)
+	router.POST("/signin", ah.SignIn)
+	router.POST("/signup", ah.SignUp)
 }
