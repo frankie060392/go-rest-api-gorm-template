@@ -21,7 +21,6 @@ func DeserializeUser(DB *gorm.DB) gin.HandlerFunc {
 		if len(fields) != 0 && fields[0] == "Bearer" {
 			accessToken = fields[1]
 		}
-
 		if accessToken == "" {
 			ctx.JSON(http.StatusUnauthorized, common.ResponseData{Status: false, Message: http.StatusText(http.StatusUnauthorized)})
 			return
@@ -30,14 +29,13 @@ func DeserializeUser(DB *gorm.DB) gin.HandlerFunc {
 		config := bootstrap.LoadConfig(".")
 
 		sub, err := cryptography.ValidateToken(accessToken, config.AccessTokenPublicKey)
-
 		if err != nil {
 			ctx.JSON(http.StatusUnauthorized, common.ResponseData{Status: false, Message: http.StatusText(http.StatusUnauthorized)})
 			return
 		}
 
 		var user model.User
-		result := DB.First(&user, "id = ?", sub)
+		result := DB.First(&user, "email = ?", sub)
 
 		if result.Error != nil {
 			ctx.JSON(http.StatusNotFound, common.ResponseData{Status: false, Message: http.StatusText(http.StatusNotFound)})

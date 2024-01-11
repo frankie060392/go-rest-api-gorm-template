@@ -14,5 +14,5 @@ func NewUserRouter(db *gorm.DB, group *gin.RouterGroup) {
 	ur := repository.NewUserRepository(db)
 	us := service.NewUserService(ur)
 	uh := handlers.NewUserHandler(us)
-	router.GET("/", uh.GetById)
+	router.GET("/", uh.GetUser)
 }
