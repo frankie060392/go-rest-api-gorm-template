@@ -1,3 +1,6 @@
 package messages
 
-var ErrorCreate string = "Error to create"
+const (
+	ErrorCreate       string = "Error to create"
+	ErrorUnauthorized string = "You are unauthorized. Please login again"
+)

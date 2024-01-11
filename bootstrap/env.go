@@ -2,17 +2,26 @@ package bootstrap
 
 import (
 	"log"
+	"time"
 
 	"github.com/spf13/viper"
 )
 
 type Config struct {
-	DBHost         string `mapstructure:"POSTGRES_HOST"`
-	DBUserName     string `mapstructure:"POSTGRES_USER"`
-	DBUserPassword string `mapstructure:"POSTGRES_PASSWORD"`
-	DBName         string `mapstructure:"POSTGRES_DB"`
-	DBPort         string `mapstructure:"POSTGRES_PORT"`
-	SERVER_ADDRESS string `mapstructure:"SERVER_ADDRESS"`
+	DBHost                 string        `mapstructure:"POSTGRES_HOST"`
+	DBUserName             string        `mapstructure:"POSTGRES_USER"`
+	DBUserPassword         string        `mapstructure:"POSTGRES_PASSWORD"`
+	DBName                 string        `mapstructure:"POSTGRES_DB"`
+	DBPort                 string        `mapstructure:"POSTGRES_PORT"`
+	ServerAddress          string        `mapstructure:"SERVER_ADDRESS"`
+	AccessTokenPrivateKey  string        `mapstructure:"ACCESS_TOKEN_PRIVATE_KEY"`
+	AccessTokenPublicKey   string        `mapstructure:"ACCESS_TOKEN_PUBLIC_KEY"`
+	RefreshTokenPrivateKey string        `mapstructure:"REFRESH_TOKEN_PRIVATE_KEY"`
+	RefreshTokenPublicKey  string        `mapstructure:"REFRESH_TOKEN_PUBLIC_KEY"`
+	AccessTokenExpiresIn   time.Duration `mapstructure:"ACCESS_TOKEN_EXPIRED_IN"`
+	RefreshTokenExpiresIn  time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRED_IN"`
+	AccessTokenMaxAge      int           `mapstructure:"ACCESS_TOKEN_MAXAGE"`
+	RefreshTokenMaxAge     int           `mapstructure:"REFRESH_TOKEN_MAXAGE"`
 }
 
 func LoadConfig(path string) *Config {

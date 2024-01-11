@@ -1,3 +1,5 @@
 package messages
 
-var SuccessCreate string = "Create success"
+const (
+	SuccessCreate string = "Create success"
+)

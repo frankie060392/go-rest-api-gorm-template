@@ -15,5 +15,5 @@ func main() {
 	gin := gin.Default()
 
 	routes.Setup(DB, gin)
-	gin.Run(config.SERVER_ADDRESS)
+	gin.Run(config.ServerAddress)
 }
