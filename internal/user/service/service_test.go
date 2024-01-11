@@ -20,23 +20,18 @@ func TestFetchByUserID(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 
 		mockTask := model.User{
-			ID:    uuid.New(),
-			Name:  "frankie",
-			Email: "frankie060392@gmail.com",
+			ID:       uuid.New(),
+			Name:     "frankie",
+			Email:    "frankie060392@gmail.com",
+			Password: "frankietest",
 		}
 
-		mockListUser := make([]model.User, 0)
-		mockListUser = append(mockListUser, mockTask)
-
-		mockUserRepository.On("GetByID", mock.Anything, userID).Return(mockListUser, nil).Once()
+		mockUserRepository.On("GetByID", mock.Anything, userID).Return(mockTask, nil)
 
 		u := service.NewUserService(mockUserRepository)
-
-		list, err := u.GetByID(context.Background(), userID)
-
+		createdUser, err := u.GetByID(context.Background(), userID)
 		assert.NoError(t, err)
-		assert.NotNil(t, list)
-		assert.Len(t, list, len(mockListUser))
+		assert.NotNil(t, createdUser)
 
 		mockUserRepository.AssertExpectations(t)
 	})
