@@ -9,6 +9,11 @@ type bookService struct {
 	repo model.BookRepositoryInterface
 }
 
+// GetBooksByAuthor implements model.BookServiceInterface.
+func (s *bookService) GetBooksByAuthor(c context.Context, email string) ([]model.Book, error) {
+	return s.repo.GetBooksByAuthor(c, email)
+}
+
 // Create implements model.BookServiceInterface.
 func (s *bookService) Create(c context.Context, book *model.Book) error {
 	return s.repo.Create(c, book)

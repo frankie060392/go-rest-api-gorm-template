@@ -4,6 +4,7 @@ import (
 	"frankie060392/rest-api-clean-arch/http/common"
 	"frankie060392/rest-api-clean-arch/http/messages"
 	"frankie060392/rest-api-clean-arch/internal/book/model"
+	user "frankie060392/rest-api-clean-arch/internal/user/model"
 	"net/http"
 	"time"
 
@@ -29,6 +30,7 @@ func (bh *bookHandler) GetByID(ctx *gin.Context) {
 }
 
 func (bh *bookHandler) Create(ctx *gin.Context) {
+	currentUser := ctx.MustGet("currentUser").(user.User)
 	var payload *model.BookCreate
 
 	if err := ctx.ShouldBindJSON(&payload); err != nil {
@@ -41,6 +43,7 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 		Name:      payload.Name,
 		CreatedAt: now,
 		UpdatedAt: now,
+		Author:    currentUser.Email,
 	}
 
 	err := bh.bookService.Create(ctx, &newBook)
@@ -57,4 +60,16 @@ func (bh *bookHandler) Create(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, common.ResponseData{Status: true, Data: bookResponse, Message: messages.SuccessCreate})
+}
+
+func (bh *bookHandler) GetBooksByUser(ctx *gin.Context) {
+	currentUser := ctx.MustGet("currentUser").(user.User)
+	books, err := bh.bookService.GetBooksByAuthor(ctx, currentUser.Email)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, common.ResponseData{Status: false, Message: http.StatusText(http.StatusNotFound)})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, common.ResponseData{Status: true, Data: books})
 }

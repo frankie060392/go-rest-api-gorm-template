@@ -11,9 +11,10 @@ import (
 
 func NewBookRouter(db *gorm.DB, group *gin.RouterGroup) {
 	router := group.Group("book")
-	ur := repository.NewBookRepository(db)
-	us := service.NewBookService(ur)
-	uh := handlers.NewBookHandler(us)
-	router.POST("/", uh.Create)
-	router.GET("/:id", uh.GetByID)
+	br := repository.NewBookRepository(db)
+	bs := service.NewBookService(br)
+	bh := handlers.NewBookHandler(bs)
+	router.POST("/", bh.Create)
+	router.GET("/:id", bh.GetByID)
+	router.GET("/list", bh.GetBooksByUser)
 }

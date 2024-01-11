@@ -10,6 +10,7 @@ import (
 type Book struct {
 	ID        uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
 	Name      string    `gorm:"type:varchar(255);not null"`
+	Author    string    `gorm:"type:varchar(255);not null"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -30,9 +31,11 @@ type BookResponse struct {
 type BookRepositoryInterface interface {
 	Create(c context.Context, book *Book) error
 	GetById(c context.Context, id string) (Book, error)
+	GetBooksByAuthor(c context.Context, email string) ([]Book, error)
 }
 
 type BookServiceInterface interface {
 	Create(c context.Context, book *Book) error
 	GetById(c context.Context, id string) (Book, error)
+	GetBooksByAuthor(c context.Context, email string) ([]Book, error)
 }
