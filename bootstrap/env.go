@@ -22,6 +22,10 @@ type Config struct {
 	RefreshTokenExpiresIn  time.Duration `mapstructure:"REFRESH_TOKEN_EXPIRED_IN"`
 	AccessTokenMaxAge      int           `mapstructure:"ACCESS_TOKEN_MAXAGE"`
 	RefreshTokenMaxAge     int           `mapstructure:"REFRESH_TOKEN_MAXAGE"`
+	AwsAccessKeyId         string        `mapstructure:"AWS_ACCESS_KEY_ID"`
+	AwsSecretKey           string        `mapstructure:"AWS_SECRET_ACCESS_KEY"`
+	AwsS3Region            string        `mapstructure:"AWS_S3_REGION"`
+	AwsS3Bucket            string        `mapstructure:"AWS_S3_BUCKET"`
 }
 
 func LoadConfig(path string) *Config {
