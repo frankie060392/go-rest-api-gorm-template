@@ -17,6 +17,13 @@ type Message struct {
 
 // SendMessage sends a message to given URL.
 func SendMessage(url string, message *Message) error {
+
+	fmt.Println(message.Text)
+	// Cut message if its length is more than 1000 chars
+	if len(message.Text) >= 1000 {
+		message.Text = message.Text[:1000]
+	}
+	fmt.Println(message.Text)
 	payload, err := json.Marshal(message)
 	if err != nil {
 		return err

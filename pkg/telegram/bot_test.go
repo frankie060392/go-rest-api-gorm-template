@@ -11,6 +11,6 @@ import (
 func TestBot(t *testing.T) {
 	assert := assert.New(t)
 	config := bootstrap.LoadConfig(".")
-	err := telegram.SendMessage(config.TelegramUrl, &telegram.Message{ChatID: config.TelegramChatId, Text: "Test"})
+	err := telegram.SendMessage(config.TelegramUrl, &telegram.Message{ChatID: config.TelegramChatId, Text: "Test112313213123123"})
 	assert.Nil(err, "Equal send telegram")
 }
